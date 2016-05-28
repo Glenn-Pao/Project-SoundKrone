@@ -36,10 +36,10 @@ public class Controller : MonoBehaviour
         {
             theCamera = (Camera)FindObjectOfType(typeof(Camera));
 
-            if (theCamera)
-                Debug.Log("Camera found");
-            else
-                Debug.Log("No camera found");
+            //if (theCamera)
+            //    Debug.Log("Camera found");
+            //else
+            //    Debug.Log("No camera found");
         }
 
         //MakeLevel(levelstring);
@@ -50,6 +50,7 @@ public class Controller : MonoBehaviour
     {
         if (started && !failed)
         {
+            Debug.Log("Button pressed");
             chosenfoot = chosenfoot.SwitchChosen();
 
             theCamera.frompos = theCamera.transform.position;
@@ -60,7 +61,14 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if(started)
+       {
+           Debug.Log("Started!");
+       }
+       else
+       {
+           Debug.Log("Haven't started!");
+       }
         if (Input.anyKeyDown && failed)
         {
             //load the game again

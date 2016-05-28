@@ -8,7 +8,7 @@ public class Conductor : MonoBehaviour {
     public AudioSource tick;
     public AudioClip tickclip;
     int crotchetsperbar = 8;                            //the smallest note is 1/8th in this situation. this can vary, but 1/8th should do for now
-    public float bpm = 150;                                      //this can be changed
+    public float bpm = 150;                             //this can be changed
 
     public float crotchet;                              //this refers to the musical term that most recognize as "notes"
     public float songposition;                        //the current song position
@@ -46,8 +46,8 @@ public class Conductor : MonoBehaviour {
         //add in the controller script class here
         if (Controller.isgameworld)
             song.pitch = Controller.pitchchange;
-        Debug.Log("crotch" + crotchet);
-        Debug.Log(lasthit);
+        //Debug.Log("crotch" + crotchet);
+        //Debug.Log(lasthit);
         nextbeattime = 0;
         nextbartime = 0;
         if (Controller.debug)
