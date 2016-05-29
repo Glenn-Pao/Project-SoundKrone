@@ -53,6 +53,8 @@ public class Controller : MonoBehaviour
             Debug.Log("Button pressed");
             chosenfoot = chosenfoot.SwitchChosen();
 
+            Debug.Log("chosenfoot " + chosenfoot.name);
+
             theCamera.frompos = theCamera.transform.position;
             theCamera.topos = new Vector3(chosenfoot.transform.position.x, chosenfoot.transform.position.y, theCamera.transform.position.z);
         }
