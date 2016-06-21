@@ -17,41 +17,17 @@ public class Foot : MonoBehaviour
     public Conductor conductor;
     public Controller controller;
     public static bool bStationary = false;
+    public BackgroundBars backgroundbars;
     //bool flashed = false;
-    public int numOfBeats;
-    int currentCount = 0;                   //the current tile it is in
-    public GameObject[] floor;           //refers to floor tiles
 
     // Use this for initialization
     void Start()
     {
-        Debug.Log("Other chosen: " + other.name + " " + other.bChosen);
-        for (int i = 0; i < numOfBeats; i++)
-        {
-            floor[i] = GameObject.Find("Red Beat (" + i + ")");
-        }
-
-    }
-    //use the AABB collision to check for whether the other foot collides.
-    bool CheckCollision(float posX, float posY, float nextPosX, float nextPosY, int spriteSize)
-    {
-        //it must go through this set of statements to try and prove no collision.
-        if (posX < nextPosX)
-            return false;
-        else if (posX > nextPosX + spriteSize)
-            return false;
-        else if (posY < nextPosY)
-            return false;
-        else if (posY > nextPosY + spriteSize)
-            return false;
-
-        //if all the statements fail, then there is collision
-        return true;
     }
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("stationary" + bStationary);
+        //Debug.Log("stationary" + bStationary);
         if (bChosen)
         {
             //if the foot is not stationary.
@@ -72,15 +48,37 @@ public class Foot : MonoBehaviour
         }
         if (controller.failed && radius > 0)
             radius -= 0.05f;
-    }
 
+
+
+    }
     //called only on the chosen foot, when the button is pressed
     public Foot SwitchChosen()
     {
         //check if there is a floor at the SNAPPED coordinate of other
         Vector3 snapped = SnappedCardinalDirection(SnapAngle(angle));
 
+        //Debug.Log("Snapped X: " + snapped.x);
+        //Debug.Log("Snapped Y: " + snapped.y);
+
+        Collider2D button = Physics2D.OverlapPoint(new Vector2(snapped.x, snapped.y), 1 << LayerMask.NameToLayer("Button"));
+
+        if (button == null || (button.GetComponent<Floor>().flashycolor && Controller.isgameworld))
+        {
+            backgroundbars.Flash(Color.red);
+            Debug.Log("Failed to SWAP");
+            return this;
+        }
+        Debug.Log("Successful SWAP");
         //this is when player makes successful move
+
+        button.GetComponent<Floor>().flashycolor = true;
+
+        if(button.GetComponent<Floor>().isend)
+        {
+
+        }
+        
         SnappedNextAngle = SnapAngle(angle);
         other.SnappedLastAngle = SnappedNextAngle - Mathf.PI;
         conductor.actuallasthit = conductor.songposition;
@@ -88,19 +86,13 @@ public class Foot : MonoBehaviour
 
         Debug.Log("lasthit " + conductor.lasthit);
         Debug.Log("songpos " + conductor.songposition);
-        Debug.Log("SWAPPED!");
-
-        Debug.Log("other " + other.name);
 
         //swap the chosen one
         this.bChosen = false;
         other.bChosen = true;
 
         other.SnapToCardinalDirection(SnappedNextAngle);
-        currentCount++;
         return other;
-
-
     }
     void SetOthersToAngle()
     {

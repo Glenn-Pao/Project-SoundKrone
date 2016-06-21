@@ -39,9 +39,6 @@ public class Conductor : MonoBehaviour {
        
         //crotchet = SelectionBaseAttribute
         crotchet = 60.0f / bpm;
-        //AudioSource[] sounds = GetComponents<AudioSource>();
-        
-        //song = sounds[0];   //load the first song
 
         //add in the controller script class here
         if (Controller.isgameworld)
@@ -50,8 +47,6 @@ public class Conductor : MonoBehaviour {
         //Debug.Log(lasthit);
         nextbeattime = 0;
         nextbartime = 0;
-        if (Controller.debug)
-            //txtOffset.enabled = false;
 
         StartMusic();
 	}
@@ -64,13 +59,12 @@ public class Conductor : MonoBehaviour {
         crotchet = 60.0f / bpm;
         songposition = song.timeSamples / 44100.0f - offset;    //44100.0f refers to the song rate in Hz
 
-        if (Controller.isgameworld)
-            txtStatus.text = "Speed level: " + song.pitch + "x";
+        //if (Controller.isgameworld)
+        //    txtStatus.text = "Speed level: " + song.pitch + "x";
 
         //once it goes across the next beat of music
         if(songposition > nextbeattime)
         {
-            OnBeat();
             nextbeattime += crotchet;       //the incrementation will prevent lag from arising that happens every 1/60th of a second. It adds up..
             beatnumber++;
         }
@@ -78,7 +72,6 @@ public class Conductor : MonoBehaviour {
         //once it goes across the next bar of music
         if(songposition > nextbartime)
         {
-            OnBar();
             nextbartime += crotchet * crotchetsperbar;
             barnumber++;
         }
@@ -107,24 +100,4 @@ public class Conductor : MonoBehaviour {
         Controller.started = true;
 			
 	}
-
-    void OnBeat()
-    {
-        //when it is on beat
-        GameObject[] arrBeat = GameObject.FindGameObjectsWithTag("Beat");
-        //foreach(GameObject objBeat in arrBeat)
-        {
-            //objBeat.SendMessage("OnBeat");
-        }
-    }
-
-    void OnBar()
-    {
-        //when it is on bar
-        GameObject[] arrBar = GameObject.FindGameObjectsWithTag("Bar");
-        //foreach (GameObject objBar in arrBar)
-        {
-            //objBar.SendMessage("OnBar");
-        }
-    }
 }

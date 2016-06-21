@@ -1,0 +1,6 @@
+What to consider for next check:
+
+- Get the GUI to work
+- Needs more variations (to tackle monotony)
+- Use time-based for collision detection (improve the game mechanics algorithms)
+- Provide user feedback by sound/movement/etc.
