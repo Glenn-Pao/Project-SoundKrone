@@ -24,12 +24,17 @@ public class Floor : MonoBehaviour {
 
         if (isend)
             floorsprite.sprite = star;
+
+        OnBeat();
     }
 
     void OnBeat()
     {
+        Debug.Log("On Beat");
         if (flashycolor)
-            floorsprite.color = arrcolors[Mathf.FloorToInt(Random.Range(0, 5))];
+            floorsprite.color = Color.green;
+        else
+            floorsprite.color = Color.white;
 
     }
 }

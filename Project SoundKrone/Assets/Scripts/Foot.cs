@@ -72,13 +72,15 @@ public class Foot : MonoBehaviour
         Debug.Log("Successful SWAP");
         //this is when player makes successful move
 
+        
         button.GetComponent<Floor>().flashycolor = true;
 
         if(button.GetComponent<Floor>().isend)
         {
 
         }
-        
+        backgroundbars.Flash(Color.green);
+
         SnappedNextAngle = SnapAngle(angle);
         other.SnappedLastAngle = SnappedNextAngle - Mathf.PI;
         conductor.actuallasthit = conductor.songposition;
