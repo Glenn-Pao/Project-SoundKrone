@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     public Conductor conductor;
-    public Text txtStatus;
+    public Text textStatus;
+    //public Renderer image;
 
     // Use this for initialization
     void Start()
@@ -20,11 +21,16 @@ public class Countdown : MonoBehaviour
     {
         if (conductor.beatnumber < 4)
         {
-            txtStatus.text = (4 - conductor.beatnumber).ToString();
+            //txtStatus.text = (4 - conductor.beatnumber).ToString();
         }
         else
         {
-            txtStatus.text = "GO!";
+            //txtStatus.text = "GO!";
         }
+    }
+
+    void RenderImage()
+    {
+        //textStatus.text = (4 - conductor.beatnumber).ToString();
     }
 }
