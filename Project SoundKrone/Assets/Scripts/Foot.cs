@@ -48,9 +48,6 @@ public class Foot : MonoBehaviour
         }
         if (controller.failed && radius > 0)
             radius -= 0.05f;
-
-
-
     }
 
     //intended for the use of tap feedback to be placed in "SwitchChosen"
@@ -85,11 +82,14 @@ public class Foot : MonoBehaviour
         //check if there is a floor at the SNAPPED coordinate of other
         Vector3 snapped = SnappedCardinalDirection(SnapAngle(angle));
 
-        
-
         Collider2D floor = Physics2D.OverlapPoint(new Vector2(snapped.x, snapped.y), 1 << LayerMask.NameToLayer("Floor"));
 
-        if (floor == null || (floor.GetComponent<Floor>().flashycolor && Controller.isgameworld))
+
+        //If there's no floor, it's a NO.
+        //safecatch on total reversal of the game. in other words, going backwards when it's supposed to be going forward
+        if (floor == null || (floor.GetComponent<Floor>().flashycolor && Controller.isgameworld)
+            ||
+            (floor != null && other.transform.position.x < this.transform.position.x))
         {
             //flash the "Miss.." sprite
             feedback.SetNumber(0);
@@ -98,6 +98,7 @@ public class Foot : MonoBehaviour
             Debug.Log("Failed to SWAP");
             return this;
         }
+        
 
         //find out the exact location at which the player taps. This will give the feedback on how accurate their tap is.
         CollisionCheck();
