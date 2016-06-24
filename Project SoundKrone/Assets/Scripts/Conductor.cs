@@ -21,8 +21,6 @@ public class Conductor : MonoBehaviour {
     public static bool hasoffsetadjusted = false;
     public int beatnumber = 0;
     public int barnumber = 0;
-    public Text txtStatus;
-    public Text txtOffset;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +30,8 @@ public class Conductor : MonoBehaviour {
             if (Application.platform == RuntimePlatform.OSXWebPlayer)
                 offset = 0.35f;
             if (Application.platform == RuntimePlatform.WindowsWebPlayer)
+                offset = 0.45f;
+            if (Application.platform == RuntimePlatform.Android)
                 offset = 0.45f;
         }
         else
@@ -48,6 +48,7 @@ public class Conductor : MonoBehaviour {
         nextbeattime = 0;
         nextbartime = 0;
 
+        Debug.Log("Start Music");
         StartMusic();
 	}
 	void StartMusic()
@@ -58,9 +59,6 @@ public class Conductor : MonoBehaviour {
 	void Update () {
         crotchet = 60.0f / bpm;
         songposition = song.timeSamples / 44100.0f - offset;    //44100.0f refers to the song rate in Hz
-
-        //if (Controller.isgameworld)
-        //    txtStatus.text = "Speed level: " + song.pitch + "x";
 
         //once it goes across the next beat of music
         if(songposition > nextbeattime)
@@ -75,29 +73,7 @@ public class Conductor : MonoBehaviour {
             nextbartime += crotchet * crotchetsperbar;
             barnumber++;
         }
-        if (Controller.debug)
-        {
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                offset -= 0.01f;
-                offsetstatic = offset;
-                hasoffsetadjusted = true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                offset += 0.01f;
-                offsetstatic = offset;
-                hasoffsetadjusted = true;
-            }
-
-            txtOffset.enabled = true;
-            txtOffset.text = offset.ToString();
-        }
-
        if (beatnumber >= 3 || !Controller.isgameworld)
-        Controller.started = true;
-			
+        Controller.started = true;	
 	}
 }

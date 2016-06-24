@@ -5,7 +5,6 @@ public class Floor : MonoBehaviour {
 
     public SpriteRenderer floorsprite;
     public Sprite star;
-    public Color[] arrcolors;
     public bool flashycolor;
     public bool isend;
     public float speed = 1;
@@ -30,11 +29,8 @@ public class Floor : MonoBehaviour {
 
     void OnBeat()
     {
-        Debug.Log("On Beat");
         if (flashycolor)
             floorsprite.color = Color.green;
-        else
-            floorsprite.color = Color.white;
 
     }
 }

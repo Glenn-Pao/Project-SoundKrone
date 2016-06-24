@@ -61,25 +61,26 @@ public class Foot : MonoBehaviour
         //Debug.Log("Snapped X: " + snapped.x);
         //Debug.Log("Snapped Y: " + snapped.y);
 
-        Collider2D button = Physics2D.OverlapPoint(new Vector2(snapped.x, snapped.y), 1 << LayerMask.NameToLayer("Button"));
+        Collider2D floor = Physics2D.OverlapPoint(new Vector2(snapped.x, snapped.y), 1 << LayerMask.NameToLayer("Floor"));
 
-        if (button == null || (button.GetComponent<Floor>().flashycolor && Controller.isgameworld))
+        if (floor == null || (floor.GetComponent<Floor>().flashycolor && Controller.isgameworld))
         {
-            backgroundbars.Flash(Color.red);
+            backgroundbars.FlashBar(Color.red);
             Debug.Log("Failed to SWAP");
             return this;
         }
         Debug.Log("Successful SWAP");
         //this is when player makes successful move
+        floor.GetComponent<Floor>().flashycolor = true;
 
-        
-        button.GetComponent<Floor>().flashycolor = true;
 
-        if(button.GetComponent<Floor>().isend)
+        if (floor.GetComponent<Floor>().isend)
         {
 
         }
-        backgroundbars.Flash(Color.green);
+
+        //controller.speed = floor.GetComponent<Floor>().speed;
+        backgroundbars.FlashBar(Color.green);
 
         SnappedNextAngle = SnapAngle(angle);
         other.SnappedLastAngle = SnappedNextAngle - Mathf.PI;

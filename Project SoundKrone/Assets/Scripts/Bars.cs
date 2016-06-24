@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//This class is used as a visual feedback tool during play where depending on the player's input, it will flash either red or green for 0.4 seconds.
+//It will then tell the user whether he loses a chance or succeeded in his button press
 public class Bars : MonoBehaviour {
 
     public int frequency;                   //refers to the current sound's frequency level
@@ -8,12 +10,11 @@ public class Bars : MonoBehaviour {
     public AudioSource ConductorAudio;      //the current song played right now
     float[] spectrum = new float[1024];     
     float maxheight = 1000;
-    float fallingheight;
 
     public Color colorStart;
     public Color colorEnd;
     public float colortimer = 0.0f;
-    public float colorduration = 0.4F;
+    public float colorduration = 0.4f;
 
     // Use this for initialization
     void Start()
@@ -34,9 +35,9 @@ public class Bars : MonoBehaviour {
 
         transform.localScale = new Vector3(LocalScale.x, newscale + LocalScale.y, LocalScale.z);
 
-        //color
         colortimer += Time.deltaTime;
 
+        //This general class should have an empty renderer component
         GetComponent<Renderer>().material.color = Color.Lerp(colorStart, colorEnd, colortimer / colorduration);
     }
 

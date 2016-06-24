@@ -6,25 +6,50 @@ using UnityEngine.UI;
 //You get it, right?
 public class Countdown : MonoBehaviour
 {
-    public Conductor conductor;
-    public Text txtStatus;
+    public Camera cam;
+    public Conductor conductor;     //need this to find out the beat count
+    public Text textStatus;
+
+    //Flash is used as it houses all the code needed to do transitioning between images.
+    public Flash[] arrImages; //an array of images, you NEED 4 images for this to work!
+
+    int count;                      //to track the count number
+    //public Renderer image;
 
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (conductor.beatnumber < 4)
+        textStatus.text = count.ToString();
+
+        RenderImage(Color.white);
+    }
+
+    void RenderImage(Color start)
+    {
+        //define the count number
+        count = 4 - conductor.beatnumber;
+        Color end = cam.backgroundColor;
+
+        //this array NEEDS 4 images in order to work!
+        switch(count)
         {
-            txtStatus.text = (4 - conductor.beatnumber).ToString();
-        }
-        else
-        {
-            txtStatus.text = "GO!";
+            case 0:     //GO!
+                arrImages[0].FlashColor(start, end);
+                break;
+            case 1:     //1..
+                arrImages[arrImages.Length - 3].FlashColor(start, end);
+                break;
+            case 2:     //2..
+                arrImages[arrImages.Length - 2].FlashColor(start, end);
+                break;
+            case 3:     //3..
+                arrImages[arrImages.Length - 1].FlashColor(start, end);
+                break;
         }
     }
 }

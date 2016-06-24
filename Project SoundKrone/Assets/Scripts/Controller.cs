@@ -30,15 +30,22 @@ public class Controller : MonoBehaviour
         isgameworld = gameworld;
         angleoffset = Mathf.PI / 2;        //base scale is 5
 
+        //a safecatch if I forget to add in theCamera object.
         if(theCamera == null)
         {
             theCamera = (CCamera)FindObjectOfType(typeof(Camera));
-
-            //if (theCamera)
-            //    Debug.Log("Camera found");
-            //else
-            //    Debug.Log("No camera found");
         }
+    }
+
+    //This function serves to use common code used between "ButtonPressBlack" and "ButtonPressWhite
+    void UponPress()
+    {
+        //trigger the pulse as visual feedback
+        theCamera.timer = 0;
+        theCamera.Pulse();
+
+        theCamera.frompos = theCamera.transform.position;
+        theCamera.topos = new Vector3(chosenfoot.transform.position.x, chosenfoot.transform.position.y, theCamera.transform.position.z);
     }
 
     //press that button, black color.
@@ -50,8 +57,7 @@ public class Controller : MonoBehaviour
         {
             chosenfoot = chosenfoot.SwitchChosen();
 
-            theCamera.frompos = theCamera.transform.position;
-            theCamera.topos = new Vector3(chosenfoot.transform.position.x, chosenfoot.transform.position.y, theCamera.transform.position.z);
+            UponPress();
         }
     }
     //press that button, white color.
@@ -63,30 +69,29 @@ public class Controller : MonoBehaviour
         {
             chosenfoot = chosenfoot.SwitchChosen();
 
-            theCamera.frompos = theCamera.transform.position;
-            theCamera.topos = new Vector3(chosenfoot.transform.position.x, chosenfoot.transform.position.y, theCamera.transform.position.z);
+            UponPress();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-       //if(started)
-       //{
-       //    Debug.Log("Started!");
-       //}
-       //else
-       //{
-       //    Debug.Log("Haven't started!");
-       //}
-        if (Input.anyKeyDown && failed)
-        {
-            //load the game again
-        }
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            //go to splash screen
-        }
+       ////if(started)
+       ////{
+       ////    Debug.Log("Started!");
+       ////}
+       ////else
+       ////{
+       ////    Debug.Log("Haven't started!");
+       ////}
+       // if (Input.anyKeyDown && failed)
+       // {
+       //     //load the game again
+       // }
+       // if (Input.GetKey(KeyCode.Escape))
+       // {
+       //     //go to splash screen
+       // }
     }
 
     public void FailLevel()

@@ -2,7 +2,8 @@
 using System.Collections;
 
 //This class is intended for the use of flash behaviour for visual feedback or game user interface features.
-//This must be used in the object itself that can be used by Countdown or BackgroundBars classes.
+//This must be used in the object itself that can be used by Countdown classes.
+//It doesn't seem to work with Bars class.
 public class Flash : MonoBehaviour {
 
     public Color colorStart;
