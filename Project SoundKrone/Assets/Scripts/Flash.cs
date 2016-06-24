@@ -9,7 +9,7 @@ public class Flash : MonoBehaviour {
     public Color colorStart;
     public Color colorEnd;
     public float colortimer = 0.0f;
-    public float colorduration = 0.5f;
+    public float colorduration = 0.4f;
 
     // Use this for initialization
     void Start()

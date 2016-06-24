@@ -18,7 +18,7 @@ public class Foot : MonoBehaviour
     public Controller controller;
     public static bool bStationary = false;
     public BackgroundBars backgroundbars;
-    //bool flashed = false;
+    public TapFeedback feedback;        //for visual feedback of perfect, good, bad, miss
 
     // Use this for initialization
     void Start()
@@ -52,23 +52,57 @@ public class Foot : MonoBehaviour
 
 
     }
+
+    //intended for the use of tap feedback to be placed in "SwitchChosen"
+    void CollisionCheck()
+    {
+        //for tapping accuracy, written in order of: Early, Just Right, Late, Miss
+        //Miss collision check occurs when all 3 of them are null
+        Collider2D good = Physics2D.OverlapPoint(new Vector2(other.transform.position.x, other.transform.position.y), 1 << LayerMask.NameToLayer("Good"));
+        Collider2D perfect = Physics2D.OverlapPoint(new Vector2(other.transform.position.x, other.transform.position.y), 1 << LayerMask.NameToLayer("Perfect"));
+        Collider2D bad = Physics2D.OverlapPoint(new Vector2(other.transform.position.x, other.transform.position.y), 1 << LayerMask.NameToLayer("Bad"));
+
+        //if it is not in the 'good' region, then it is either perfect or bad or miss
+        if (good != null)
+        {
+            //flash the "GOOD!" sprite
+            feedback.SetNumber(1);
+        }
+        if (perfect != null)
+        {
+            //flash the "PERFECT!" sprite
+            feedback.SetNumber(2);
+        }
+        if (bad != null)
+        {
+            //flash the "BAD.." sprite
+            feedback.SetNumber(3);
+        }
+    }
     //called only on the chosen foot, when the button is pressed
     public Foot SwitchChosen()
     {
         //check if there is a floor at the SNAPPED coordinate of other
         Vector3 snapped = SnappedCardinalDirection(SnapAngle(angle));
 
-        //Debug.Log("Snapped X: " + snapped.x);
-        //Debug.Log("Snapped Y: " + snapped.y);
+        
 
         Collider2D floor = Physics2D.OverlapPoint(new Vector2(snapped.x, snapped.y), 1 << LayerMask.NameToLayer("Floor"));
 
         if (floor == null || (floor.GetComponent<Floor>().flashycolor && Controller.isgameworld))
         {
+            //flash the "Miss.." sprite
+            feedback.SetNumber(0);
+            feedback.RenderImage(Color.white);
             backgroundbars.FlashBar(Color.red);
             Debug.Log("Failed to SWAP");
             return this;
         }
+
+        //find out the exact location at which the player taps. This will give the feedback on how accurate their tap is.
+        CollisionCheck();
+        feedback.RenderImage(Color.white);
+
         Debug.Log("Successful SWAP");
         //this is when player makes successful move
         floor.GetComponent<Floor>().flashycolor = true;

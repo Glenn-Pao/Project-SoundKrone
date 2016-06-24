@@ -51,7 +51,6 @@
      <Compile Include="Assets\Scripts\Conductor.cs" />
      <Compile Include="Assets\Scripts\Controller.cs" />
      <Compile Include="Assets\Scripts\Countdown.cs" />
-     <Compile Include="Assets\Scripts\CountdownImages.cs" />
      <Compile Include="Assets\Scripts\Flash.cs" />
      <Compile Include="Assets\Scripts\Floor.cs" />
      <Compile Include="Assets\Scripts\Foot.cs" />

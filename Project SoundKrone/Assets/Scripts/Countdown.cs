@@ -8,13 +8,10 @@ public class Countdown : MonoBehaviour
 {
     public Camera cam;
     public Conductor conductor;     //need this to find out the beat count
-    public Text textStatus;
 
     //Flash is used as it houses all the code needed to do transitioning between images.
     public Flash[] arrImages; //an array of images, you NEED 4 images for this to work!
-
     int count;                      //to track the count number
-    //public Renderer image;
 
     // Use this for initialization
     void Start()
@@ -24,8 +21,6 @@ public class Countdown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textStatus.text = count.ToString();
-
         RenderImage(Color.white);
     }
 
