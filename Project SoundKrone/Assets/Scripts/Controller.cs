@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class Controller : MonoBehaviour
 {
     public GameObject floor;
+
+    public ScreenTransitions screentransitions;
    
     //implement this afterwards
     public Foot chosenfoot;             //left or right foot?
@@ -98,5 +100,14 @@ public class Controller : MonoBehaviour
     {
         failed = true;
         conductor.GetComponent<AudioSource>().Pause();  //pause the music
+        screentransitions.Quit();
+    }
+
+    public void LevelCleared()
+    {
+        conductor.GetComponent<AudioSource>().Stop();   //stop the music
+        //conductor.DeleteSound();
+        screentransitions.SwitchToMainMenu();
+        //screentransitions.Quit();
     }
 }

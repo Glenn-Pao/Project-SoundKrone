@@ -8,7 +8,7 @@ public class Conductor : MonoBehaviour {
     public AudioSource tick;
     public AudioClip tickclip;
     int crotchetsperbar = 8;                            //the smallest note is 1/8th in this situation. this can vary, but 1/8th should do for now
-    public float bpm = 150;                             //this can be changed
+    public float bpm;                             //this can be changed
 
     public float crotchet;                              //this refers to the musical term that most recognize as "notes"
     public float songposition;                        //the current song position
@@ -17,13 +17,19 @@ public class Conductor : MonoBehaviour {
     float nextbeattime = 0.0f;
     float nextbartime = 0.0f;
     public float offset = 0.2f;                      //positive means the song must be minussed!
-    public static float offsetstatic = 0.40f;
+    public static float offsetstatic = 0.2f;
     public static bool hasoffsetadjusted = false;
     public int beatnumber = 0;
     public int barnumber = 0;
 
+    void DestroyObject()
+    {
+        Debug.Log("Destroy object");
+        DestroyImmediate(this.gameObject);
+    }
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         //adjust the playback based on the tiny lag that will be expected
         if (!hasoffsetadjusted)
         {
@@ -33,12 +39,15 @@ public class Conductor : MonoBehaviour {
                 offset = 0.45f;
             if (Application.platform == RuntimePlatform.Android)
                 offset = 0.45f;
+            //hasoffsetadjusted = true;
         }
         else
             offset = offsetstatic;
        
         //crotchet = SelectionBaseAttribute
         crotchet = 60.0f / bpm;
+        AudioSource sounds = GetComponent<AudioSource>();
+        song = sounds;
 
         //add in the controller script class here
         if (Controller.isgameworld)

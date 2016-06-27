@@ -16,11 +16,30 @@ public class Bars : MonoBehaviour {
     public float colortimer = 0.0f;
     public float colorduration = 0.4f;
 
+    void Awake()
+    {
+        Debug.Log("Awake called");
+        if (ConductorAudio == null)
+        {
+            Debug.Log("Conductor Audio found");
+            ConductorAudio = GameObject.Find("Music").GetComponent<AudioSource>();
+        }
+        else
+        {
+            Debug.Log("Conductor Audio not found");
+        }
+    }
     // Use this for initialization
     void Start()
     {
+        Debug.Log("Start called");
         LocalScale = transform.localScale;
         frequency = Mathf.RoundToInt(transform.localPosition.x / 14 * 1000 + 20);
+
+        if (ConductorAudio == null)
+        {
+            ConductorAudio = GameObject.Find("Music").GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame

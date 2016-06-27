@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BackgroundBars.cs" />
      <Compile Include="Assets\Scripts\Bars.cs" />
+     <Compile Include="Assets\Scripts\Button_Ring.cs" />
      <Compile Include="Assets\Scripts\CCamera.cs" />
      <Compile Include="Assets\Scripts\Conductor.cs" />
      <Compile Include="Assets\Scripts\Controller.cs" />

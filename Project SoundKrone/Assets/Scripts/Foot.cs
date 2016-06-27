@@ -111,7 +111,7 @@ public class Foot : MonoBehaviour
 
         if (floor.GetComponent<Floor>().isend)
         {
-
+            controller.LevelCleared();
         }
 
         //controller.speed = floor.GetComponent<Floor>().speed;
