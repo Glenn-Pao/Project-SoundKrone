@@ -88,13 +88,13 @@ public class Foot : MonoBehaviour
         //If there's no floor, it's a NO.
         //safecatch on total reversal of the game. in other words, going backwards when it's supposed to be going forward
         if (floor == null || (floor.GetComponent<Floor>().flashycolor && Controller.isgameworld)
-            ||
-            (floor != null && other.transform.position.x < this.transform.position.x))
+            //(floor != null && other.transform.position.x < this.transform.position.x))
+            )
         {
             //flash the "Miss.." sprite
             feedback.SetNumber(0);
             feedback.RenderImage(Color.white);
-            backgroundbars.FlashBar(Color.red);
+            backgroundbars.FlashBar(Color.magenta);
             Debug.Log("Failed to SWAP");
             return this;
         }
@@ -115,7 +115,7 @@ public class Foot : MonoBehaviour
         }
 
         //controller.speed = floor.GetComponent<Floor>().speed;
-        backgroundbars.FlashBar(Color.green);
+        backgroundbars.FlashBar(Color.grey);
 
         SnappedNextAngle = SnapAngle(angle);
         other.SnappedLastAngle = SnappedNextAngle - Mathf.PI;

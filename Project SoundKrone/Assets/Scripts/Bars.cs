@@ -9,7 +9,7 @@ public class Bars : MonoBehaviour {
     Vector3 LocalScale;                     //the local sclae of the bar
     public AudioSource ConductorAudio;      //the current song played right now
     float[] spectrum = new float[1024];     
-    public float maxheight = 1000;
+    public float maxheight = 100;
 
     public Color colorStart;
     public Color colorEnd;
