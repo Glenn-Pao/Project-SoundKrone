@@ -23,12 +23,17 @@ public class Foot : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if(conductor == null)
+        {
+            conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
+        angle = 0;
     }
     // Update is called once per frame
     void Update()
     {
         //Debug.Log("stationary" + bStationary);
-        if (bChosen)
+        if (bChosen && !controller.levelcleared)
         {
             //if the foot is not stationary.
             if (!bStationary)
@@ -98,7 +103,11 @@ public class Foot : MonoBehaviour
             Debug.Log("Failed to SWAP");
             return this;
         }
-        
+        if (floor.GetComponent<Floor>().isend)
+        {
+            controller.LevelCleared();
+            return this;
+        }
 
         //find out the exact location at which the player taps. This will give the feedback on how accurate their tap is.
         CollisionCheck();
@@ -107,12 +116,6 @@ public class Foot : MonoBehaviour
         Debug.Log("Successful SWAP");
         //this is when player makes successful move
         floor.GetComponent<Floor>().flashycolor = true;
-
-
-        if (floor.GetComponent<Floor>().isend)
-        {
-            controller.LevelCleared();
-        }
 
         //controller.speed = floor.GetComponent<Floor>().speed;
         backgroundbars.FlashBar(Color.grey);

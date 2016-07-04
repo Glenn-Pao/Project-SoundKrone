@@ -5,10 +5,23 @@ using System.Collections;
 //there's a need to create a class for saved preferences. It will then be plugged in here
 public class ScreenTransitions : MonoBehaviour {
 
+    public Conductor conductor;
+
+    void Awake()
+    {
+        if (conductor == null)
+        {
+            conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
+    }
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
 	
 	}
+
+   
+
 	// Update is called once per frame
 	void Update () {
 	

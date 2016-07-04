@@ -13,6 +13,14 @@ public class Countdown : MonoBehaviour
     public Flash[] arrImages; //an array of images, you NEED 4 images for this to work!
     int count;                      //to track the count number
 
+    void Awake()
+    {
+        if (conductor == null)
+        {
+            conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
+    }
+
     // Use this for initialization
     void Start()
     {

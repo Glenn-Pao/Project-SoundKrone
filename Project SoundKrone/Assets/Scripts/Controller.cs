@@ -17,26 +17,40 @@ public class Controller : MonoBehaviour
     public float angleoffset;
     public bool gameworld;
     public bool failed;
+    public bool levelcleared;
     public static bool isgameworld;
     public static bool debug = true;
     public static bool started = false;
     public static float pitchchange = 0.8f;
     public static int currentlevel = 1;
 
-    //public string[] captions = { };
+    public bool isPaused = false;       //is the game paused?
 
+    void Awake()
+    {
+        //a safecatch if I forget to add in theCamera object.
+        if (theCamera == null)
+        {
+            theCamera = (CCamera)FindObjectOfType(typeof(Camera));
+        }
+        if (conductor == null)
+        {
+            conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
+    }
     // Use this for initialization
     void Start()
     {
         started = false;
+        levelcleared = false;
         isgameworld = gameworld;
         angleoffset = Mathf.PI / 2;        //base scale is 5
 
-        //a safecatch if I forget to add in theCamera object.
-        if(theCamera == null)
-        {
-            theCamera = (CCamera)FindObjectOfType(typeof(Camera));
-        }
+        //initialize the conductor's variables.
+        //this is needed because of the singleton approach used. It will destroy the synergy between the song and gameplay if not handled properly
+        conductor.ResetStats();
+        conductor.LoadSongLevel();
+        conductor.StartMusic();
     }
 
     //This function serves to use common code used between "ButtonPressBlack" and "ButtonPressWhite
@@ -99,14 +113,16 @@ public class Controller : MonoBehaviour
     public void FailLevel()
     {
         failed = true;
-        conductor.GetComponent<AudioSource>().Pause();  //pause the music
-        screentransitions.Quit();
+        conductor.song.Pause();  //pause the music
+        //screentransitions.Quit();
     }
 
     public void LevelCleared()
     {
+        levelcleared = true;
+        //conductor.ResetStats();
         conductor.GetComponent<AudioSource>().Stop();   //stop the music
-        //conductor.DeleteSound();
+        
         screentransitions.SwitchToMainMenu();
         //screentransitions.Quit();
     }

@@ -1,0 +1,12 @@
+miss
+bad
+good
+perfect
+feedback bar line
+thicker bar rectangle
+
+---- bars ------
+
+countdown
+black button
+white button
