@@ -16,7 +16,6 @@ public class Controller : MonoBehaviour
     public string levelstring;
     public float angleoffset;
     public bool gameworld;
-    public bool failed;
     public bool levelcleared;
     public static bool isgameworld;
     public static bool debug = true;
@@ -24,7 +23,8 @@ public class Controller : MonoBehaviour
     public static float pitchchange = 0.8f;
     public static int currentlevel = 1;
 
-    public bool isPaused = false;       //is the game paused?
+    public static bool isPaused = false;       //is the game paused?
+    public static bool failed = false;         //did the player fail the level?
 
     void Awake()
     {
@@ -41,8 +41,11 @@ public class Controller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //initialize all the variables here just in case I forget to intialize them again.
         started = false;
         levelcleared = false;
+        failed = false;
+        isPaused = false;
         isgameworld = gameworld;
         angleoffset = Mathf.PI / 2;        //base scale is 5
 
@@ -89,25 +92,25 @@ public class Controller : MonoBehaviour
         }
     }
 
+    //press the pause button. This will trigger the pause.
+    public void PauseGame()
+    {
+        //if not paused, toggle it to true
+        if(!isPaused)
+        {
+            isPaused = true;
+        }
+        //if it is paused, toggle it back to false
+        else
+        {
+            isPaused = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-       ////if(started)
-       ////{
-       ////    Debug.Log("Started!");
-       ////}
-       ////else
-       ////{
-       ////    Debug.Log("Haven't started!");
-       ////}
-       // if (Input.anyKeyDown && failed)
-       // {
-       //     //load the game again
-       // }
-       // if (Input.GetKey(KeyCode.Escape))
-       // {
-       //     //go to splash screen
-       // }
+       
     }
 
     public void FailLevel()

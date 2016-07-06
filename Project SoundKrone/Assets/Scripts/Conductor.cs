@@ -82,24 +82,35 @@ public class Conductor : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
-        crotchet = 60.0f / bpm;
-        songposition = song.timeSamples / 44100.0f - offset;    //44100.0f refers to the song rate in Hz
-
-        //once it goes across the next beat of music
-        if (songposition > nextbeattime)
+        if (!Controller.isPaused)
         {
-            nextbeattime += crotchet;       //the incrementation will prevent lag from arising that happens every 1/60th of a second. It adds up..
-            beatnumber++;
-        }
+            if(!song.isPlaying && !Controller.failed)
+            {
+                ResumeMusic();
+            }
+            crotchet = 60.0f / bpm;
+            songposition = song.timeSamples / 44100.0f - offset;    //44100.0f refers to the song rate in Hz
 
-        //once it goes across the next bar of music
-        if (songposition > nextbartime)
-        {
-            nextbartime += crotchet * crotchetsperbar;
-            barnumber++;
+            //once it goes across the next beat of music
+            if (songposition > nextbeattime)
+            {
+                nextbeattime += crotchet;       //the incrementation will prevent lag from arising that happens every 1/60th of a second. It adds up..
+                beatnumber++;
+            }
+
+            //once it goes across the next bar of music
+            if (songposition > nextbartime)
+            {
+                nextbartime += crotchet * crotchetsperbar;
+                barnumber++;
+            }
+            if (beatnumber >= 3 || !Controller.isgameworld)
+                Controller.started = true;
         }
-        if (beatnumber >= 3 || !Controller.isgameworld)
-            Controller.started = true;
+        if(Controller.isPaused)
+        {
+            PauseMusic();
+        }
     }
     public void StartMusic()
     {
@@ -140,5 +151,13 @@ public class Conductor : MonoBehaviour {
         barnumber = 0;
         nextbeattime = 0;
         nextbartime = 0;
+    }
+    void PauseMusic()
+    {
+        song.Pause();
+    }
+    void ResumeMusic()
+    {
+        song.UnPause();
     }
 }

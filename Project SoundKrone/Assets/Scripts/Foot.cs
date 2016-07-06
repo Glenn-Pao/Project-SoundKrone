@@ -33,7 +33,7 @@ public class Foot : MonoBehaviour
     void Update()
     {
         //Debug.Log("stationary" + bStationary);
-        if (bChosen && !controller.levelcleared)
+        if (bChosen && !controller.levelcleared && !Controller.isPaused)
         {
             //if the foot is not stationary.
             if (!bStationary)
@@ -51,7 +51,7 @@ public class Foot : MonoBehaviour
                 controller.FailLevel();
             }
         }
-        if (controller.failed && radius > 0)
+        if (Controller.failed && radius > 0)
             radius -= 0.05f;
     }
 
