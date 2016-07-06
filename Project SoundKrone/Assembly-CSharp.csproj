@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Flash.cs" />
      <Compile Include="Assets\Scripts\Floor.cs" />
      <Compile Include="Assets\Scripts\Foot.cs" />
+     <Compile Include="Assets\Scripts\Pause.cs" />
      <Compile Include="Assets\Scripts\ScreenTransitions.cs" />
      <Compile Include="Assets\Scripts\TapFeedback.cs" />
  <Reference Include="UnityEngine.UI">
