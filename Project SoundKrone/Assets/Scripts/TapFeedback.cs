@@ -5,7 +5,7 @@ using System.Collections;
 public class TapFeedback : MonoBehaviour {
 
     public Camera cam;
-    public Bars[] arrImages;        //an array of bars
+    public TapFlash[] arrImages;        //an array of bars
     int number = 4;                 //used to track the ID number to display the feedback.
 
 	// Use this for initialization

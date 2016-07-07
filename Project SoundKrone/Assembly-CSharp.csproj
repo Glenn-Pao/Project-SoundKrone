@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Pause.cs" />
      <Compile Include="Assets\Scripts\ScreenTransitions.cs" />
      <Compile Include="Assets\Scripts\TapFeedback.cs" />
+     <Compile Include="Assets\Scripts\TapFlash.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

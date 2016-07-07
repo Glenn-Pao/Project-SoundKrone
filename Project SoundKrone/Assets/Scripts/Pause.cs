@@ -5,7 +5,10 @@ using System.Collections;
 //I think this is overkill though.
 public class Pause : MonoBehaviour 
 {
-    public Renderer sprite;
+    public Renderer sprite;     //the sprite itself
+    public Color start;         //starting color
+    public Color end;           //ending color
+
 	// Use this for initialization
 	void Start () {
 	
