@@ -17,6 +17,7 @@ public class Foot : MonoBehaviour
     public Conductor conductor;
     public Controller controller;
     public static bool bStationary = false;
+    public static bool bFlashEnabled = false;       //if true, show the flash.
     public BackgroundBars backgroundbars;
     public TapFeedback feedback;        //for visual feedback of perfect, good, bad, miss
 
@@ -54,7 +55,6 @@ public class Foot : MonoBehaviour
         if (Controller.failed && radius > 0)
             radius -= 0.05f;
     }
-
     //intended for the use of tap feedback to be placed in "SwitchChosen"
     void CollisionCheck()
     {
@@ -80,8 +80,13 @@ public class Foot : MonoBehaviour
             //flash the "BAD.." sprite
             feedback.SetNumber(3);
         }
+        feedback.RenderImage(Color.white);
     }
     //called only on the chosen foot, when the button is pressed
+    void BarFlash()
+    {   
+        backgroundbars.FlashBar(Color.grey);
+    }
     public Foot SwitchChosen()
     {
         //check if there is a floor at the SNAPPED coordinate of other
@@ -92,17 +97,18 @@ public class Foot : MonoBehaviour
 
         //If there's no floor, it's a NO.
         //safecatch on total reversal of the game. in other words, going backwards when it's supposed to be going forward
-        if (floor == null || (floor.GetComponent<Floor>().flashycolor && Controller.isgameworld)
+        if (floor == null || (floor.GetComponent<Floor>().success && Controller.isgameworld)
             //(floor != null && other.transform.position.x < this.transform.position.x))
             )
         {
             //flash the "Miss.." sprite
             feedback.SetNumber(0);
             feedback.RenderImage(Color.white);
-            backgroundbars.FlashBar(Color.magenta);
-            Debug.Log("Failed to SWAP");
+            backgroundbars.FlashBar(Color.red);
             return this;
         }
+
+        //level is cleared successfully
         if (floor.GetComponent<Floor>().isend)
         {
             controller.LevelCleared();
@@ -111,14 +117,16 @@ public class Foot : MonoBehaviour
 
         //find out the exact location at which the player taps. This will give the feedback on how accurate their tap is.
         CollisionCheck();
-        feedback.RenderImage(Color.white);
 
-        Debug.Log("Successful SWAP");
-        //this is when player makes successful move
-        floor.GetComponent<Floor>().flashycolor = true;
+        if(bFlashEnabled)
+        {
+            //this is when player makes successful move, turn it to green
+            floor.GetComponent<Floor>().success = true;
+        }
 
-        //controller.speed = floor.GetComponent<Floor>().speed;
-        backgroundbars.FlashBar(Color.grey);
+        //this is when player makes successful move, turn it to green
+        floor.GetComponent<Floor>().success = true;
+        
 
         SnappedNextAngle = SnapAngle(angle);
         other.SnappedLastAngle = SnappedNextAngle - Mathf.PI;

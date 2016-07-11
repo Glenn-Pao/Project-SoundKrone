@@ -19,9 +19,6 @@ public class ScreenTransitions : MonoBehaviour {
     {
 	
 	}
-
-   
-
 	// Update is called once per frame
 	void Update () {
 	

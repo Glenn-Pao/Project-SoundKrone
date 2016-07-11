@@ -31,7 +31,6 @@ public class TapFeedback : MonoBehaviour {
         //this array NEEDS 4 images
         //Perfect, Good, Bad and Miss
         Color end = cam.backgroundColor;
-        Debug.Log("Number: " + number);
         switch(number)
         {
             case 0:     //Miss..

@@ -5,30 +5,42 @@ using System.Collections;
 //I think this is overkill though.
 public class Pause : MonoBehaviour 
 {
-    public Renderer sprite;     //the sprite itself
-    public Color start;         //starting color
-    public Color end;           //ending color
+    public Flash[] arrImages;
+    //Color start = Color.clear;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        //ShowSprite(Color.clear);
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        ShowSprite();
 	}
 
     public void ShowSprite()
     {
-        if(Controller.isPaused)
+        for (int i = 0; i < arrImages.Length; i++)
         {
-            sprite.material.color = Color.white;
-        }
-        else
-        {
-            sprite.material.color = Color.clear;
+            //initialize the 2 colors needed
+            Color start, end;
+
+            if(Controller.isPaused)
+            {
+                //define the colors needed
+                start = Color.clear;
+                end = Color.white;
+                arrImages[i].FlashColor(start, end);
+            }
+            else
+            {
+                //define the colors needed
+                start = Color.white;
+                end = Color.clear;
+                arrImages[i].FlashColor(start, end);
+            }
+            
         }
     }
 }

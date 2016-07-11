@@ -5,10 +5,10 @@ public class Floor : MonoBehaviour {
 
     public SpriteRenderer floorsprite;
     public Sprite star;
-    public bool flashycolor;
+    public bool success;
     public bool isend;
     public float speed = 1;
-
+    
     // Use this for initialization
     void Start()
     {
@@ -29,7 +29,7 @@ public class Floor : MonoBehaviour {
 
     void OnBeat()
     {
-        if (flashycolor)
+        if (success)
             floorsprite.color = Color.green;
 
     }
