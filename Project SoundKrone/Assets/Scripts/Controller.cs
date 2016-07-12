@@ -39,7 +39,7 @@ public class Controller : MonoBehaviour
         }
     }
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         //initialize all the variables here just in case I forget to intialize them again.
         started = false;
@@ -116,7 +116,7 @@ public class Controller : MonoBehaviour
     public void FailLevel()
     {
         failed = true;
-        conductor.song.Pause();  //pause the music
+        conductor.song.Stop();  //pause the music
         //screentransitions.Quit();
     }
 
