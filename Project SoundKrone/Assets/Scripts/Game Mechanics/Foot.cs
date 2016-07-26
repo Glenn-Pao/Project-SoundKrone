@@ -17,7 +17,7 @@ public class Foot : MonoBehaviour
     public Conductor conductor;
     public Controller controller;
     public static bool bStationary = false;
-    public static bool bFlashEnabled = false;       //if true, show the flash.
+    public static bool bFlashEnabled = true;       //if true, show the flash.
     public BackgroundBars backgroundbars;
     public TapFeedback feedback;        //for visual feedback of perfect, good, bad, miss
 
@@ -122,10 +122,11 @@ public class Foot : MonoBehaviour
         {
             //this is when player makes successful move, turn it to green
             floor.GetComponent<Floor>().success = true;
+            backgroundbars.FlashBar(Color.grey);
         }
 
         //this is when player makes successful move, turn it to green
-        floor.GetComponent<Floor>().success = true;
+        //floor.GetComponent<Floor>().success = true;
         
 
         SnappedNextAngle = SnapAngle(angle);

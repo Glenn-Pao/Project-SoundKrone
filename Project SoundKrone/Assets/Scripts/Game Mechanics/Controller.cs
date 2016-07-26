@@ -80,7 +80,7 @@ public class Controller : MonoBehaviour
     {
         //trigger the pulse as visual feedback
         theCamera.timer = 0;
-        theCamera.Pulse();
+        //theCamera.Pulse();
 
         theCamera.frompos = theCamera.transform.position;
         theCamera.topos = new Vector3(chosenfoot.transform.position.x, chosenfoot.transform.position.y, theCamera.transform.position.z);
