@@ -50,24 +50,27 @@ public class ChooseSong : MonoBehaviour {
         }
         else
         {
-            //make sure to keep track of what is actively playing!
-            if(conductor.tracknumber != 3)
-            {
-                switch(conductor.tracknumber)
-                {
-                    case 4:         //display Beethoven Moonlight Sonata
-                        arrSongs[0].gameObject.SetActive(gameObject.activeInHierarchy);
-                        arrComposers[0].gameObject.SetActive(gameObject.activeInHierarchy);
-                        break;
-                    case 5:         //display Mozart Turkish March
-                        arrSongs[1].gameObject.SetActive(gameObject.activeInHierarchy);
-                        arrComposers[1].gameObject.SetActive(gameObject.activeInHierarchy);
-                        break;
-                }
-            }
+            CheckCurrentlyPlaying();
         }
         ReplayTrackWhenNotPlaying();
 	}
+    void CheckCurrentlyPlaying()
+    {
+        switch(conductor.tracknumber)
+        {
+            case 3:     //Frozen Snow - Lullaby
+                //the default one. Does not belong to the array
+                break;
+            case 4:     //Beethoven Moonlight Sonata
+                arrSongs[1].gameObject.SetActive(gameObject.activeInHierarchy);
+                arrComposers[1].gameObject.SetActive(gameObject.activeInHierarchy);
+                break;
+            case 5:     //Mozart Turkish March
+                arrSongs[0].gameObject.SetActive(gameObject.activeInHierarchy);
+                arrComposers[0].gameObject.SetActive(gameObject.activeInHierarchy);
+                break;
+        }
+    }
     void ReplayTrackWhenNotPlaying()
     {
         //when the song is no longer playing, just replay the song
@@ -116,24 +119,10 @@ public class ChooseSong : MonoBehaviour {
                 conductor.LoadSongLevel(3);
                 break;
             case 1:         //display Mozart's Turkish March
-                arrSongs[0].gameObject.SetActive(gameObject.activeInHierarchy);
                 conductor.LoadSongLevel(5);
                 break;
             case 10:        //display Beethoven Moonlight Sonata
-                arrSongs[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 conductor.LoadSongLevel(4);
-                break;
-        }
-        //The composer name switch
-        switch(activeComposerNum)
-        {
-            case 0:         //Frozen Snow
-                break;
-            case 1:         //Mozart
-                arrComposers[0].gameObject.SetActive(gameObject.activeInHierarchy);
-                break;
-            case 10:        //Beethoven
-                arrComposers[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
         }
         conductor.StartMusic();
@@ -145,27 +134,13 @@ public class ChooseSong : MonoBehaviour {
         switch (activeSongNum)
         {
             case 0:         //display Beethoven Moonlight Sonata
-                arrSongs[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 conductor.LoadSongLevel(4);
                 break;
             case 1:         //display Frozen Snow Lullaby
                 conductor.LoadSongLevel(3);
                 break;
             case 10:        //display Mozart Turkish March
-                arrSongs[0].gameObject.SetActive(gameObject.activeInHierarchy);
                 conductor.LoadSongLevel(5);
-                break;
-        }
-        //The composer name switch
-        switch (activeComposerNum)
-        {
-            case 0:         //Beethoven
-                arrComposers[1].gameObject.SetActive(gameObject.activeInHierarchy);
-                break;
-            case 1:         //Frozen Snow 
-                break;
-            case 10:        //Mozart
-                arrComposers[0].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
         }
         conductor.StartMusic();

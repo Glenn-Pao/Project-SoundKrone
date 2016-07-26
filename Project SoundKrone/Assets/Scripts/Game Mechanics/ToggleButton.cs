@@ -6,10 +6,16 @@ using System.Collections;
 //L.O.L
 public class ToggleButton : MonoBehaviour {
     public Controller controller;
+    public Conductor conductor;
     public PopOutButtons popOutButton;
+    public ScreenTransitions transitions;
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        if (conductor == null)
+        {
+            conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
 	}
 	// Update is called once per frame
 	void Update () 
@@ -22,5 +28,15 @@ public class ToggleButton : MonoBehaviour {
         //trigger this when the restart button is triggered
         popOutButton.setPopOut(false);
         controller.Start();
+    }
+    //to be used only on the main menu button
+    public void MainMenuButton()
+    {
+        //change the song to Frozen Snow - Lullaby
+        conductor.song.Stop();
+        conductor.LoadSongLevel(3);
+        conductor.StartMusic();
+        controller.PauseGame();         //unpause the song tracking
+        transitions.SwitchToMainMenu();
     }
 }
