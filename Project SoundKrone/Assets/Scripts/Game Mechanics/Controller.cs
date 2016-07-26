@@ -51,10 +51,31 @@ public class Controller : MonoBehaviour
 
         //initialize the conductor's variables.
         //this is needed because of the singleton approach used. It will destroy the synergy between the song and gameplay if not handled properly
+        Debug.Log("Stop song");
+        conductor.song.Stop();      //stop the current song
         conductor.ResetStats();
-        conductor.LoadSongLevel();
+        LoadSong();
         conductor.StartMusic();
     }
+    //which song to load?
+    void LoadSong()
+    {
+        if(Application.loadedLevelName.ToString() == "Tutorial_Level")
+        {
+            conductor.LoadSongLevel(0);     //beethoven sonata
+            
+            //conductor.LoadSongLevel(1);
+        }
+        else if (Application.loadedLevelName.ToString() == "Tutorial_Level_2")
+        {
+            conductor.LoadSongLevel(2);
+        }
+        else if(Application.loadedLevelName.ToString() == "Tutorial_Level_3")
+        {
+            conductor.LoadSongLevel(3);
+        }
+    }
+
 
     //This function serves to use common code used between "ButtonPressBlack" and "ButtonPressWhite
     void UponPress()
@@ -116,17 +137,21 @@ public class Controller : MonoBehaviour
     public void FailLevel()
     {
         failed = true;
-        conductor.song.Stop();  //pause the music
+        conductor.song.Stop();  //stop the music
         //screentransitions.Quit();
     }
 
     public void LevelCleared()
     {
         levelcleared = true;
-        //conductor.ResetStats();
-        conductor.GetComponent<AudioSource>().Stop();   //stop the music
-        
+        levelCleared();
+    }
+
+    void levelCleared()
+    {
+        conductor.song.Stop();   //stop the music
+        conductor.LoadSongLevel(4);
+        conductor.StartMusic();
         screentransitions.SwitchToMainMenu();
-        //screentransitions.Quit();
     }
 }

@@ -52,6 +52,7 @@ public class Conductor : MonoBehaviour {
         //adjust the playback based on the tiny lag that will be expected
         if (!hasoffsetadjusted)
         {
+            //the offset must be adjustable
             if (Application.platform == RuntimePlatform.OSXWebPlayer)
                 offset = 0.35f;
             if (Application.platform == RuntimePlatform.WindowsWebPlayer)
@@ -71,12 +72,12 @@ public class Conductor : MonoBehaviour {
         //add in the controller script class here
         if (Controller.isgameworld)
             song.pitch = Controller.pitchchange;
-        //Debug.Log("crotch" + crotchet);
-        //Debug.Log(lasthit);
         lasthit = 0;
         actuallasthit = 0;
-        
-        //StartMusic();
+
+        //default song
+        LoadSongLevel(4);
+        StartMusic();
 	}
 	
 	// Update is called once per frame
@@ -116,31 +117,53 @@ public class Conductor : MonoBehaviour {
     {
         song.Play();
     }
-    public void LoadSongLevel()
+    public void LoadSongLevel(int num)
     {
         AudioSource[] sounds = GetComponents<AudioSource>();
 
-        if (Application.loadedLevelName.ToString() == "Tutorial_Level")
+        switch(num)
         {
-            Debug.Log("Loaded Tutorial lv 1 sound");
-            song = sounds[0];
+            case 1:
+                Debug.Log("sounds[0] loaded");
+                bpm = 80;
+                song = sounds[0];   //Tutorial 1
+                break;
+            case 2:
+                Debug.Log("sounds[1] loaded");
+                bpm = 80;
+                song = sounds[1];   //Tutorial 2
+                break;
+            case 3:
+                Debug.Log("sounds[2] loaded");
+                bpm = 80;
+                song = sounds[2];   //Tutorial 3
+                break;
+            case 4:
+                Debug.Log("sound[3] loaded");
+                song = sounds[3];   //Frozen Snow - Lullaby (Main Menu)
+                break;
         }
-        else if (Application.loadedLevelName.ToString() == "Tutorial_Level_2")
-        {
-            Debug.Log("Loaded Tutorial lv 2 sound");
-            song = sounds[1];
-        }
-        else if (Application.loadedLevelName.ToString() == "Tutorial_Level_3")
-        {
-            Debug.Log("Loaded Tutorial lv 3 sound");
-            song = sounds[2];
-        }
-        if (Application.loadedLevelName.ToString() == "Level_1")
-        {
-            Debug.Log("Loaded Level 1 sound");
-            bpm = 70;
-            song = sounds[3];
-        }
+
+        //if (Application.loadedLevelName.ToString() == "Tutorial_Level")
+        //{
+        //    Debug.Log("Loaded Tutorial lv 1 sound");
+        //    song = sounds[0];
+        //}
+        //else if (Application.loadedLevelName.ToString() == "Tutorial_Level_2")
+        //{
+        //    Debug.Log("Loaded Tutorial lv 2 sound");
+        //    song = sounds[1];
+        //}
+        //else if (Application.loadedLevelName.ToString() == "Tutorial_Level_3")
+        //{
+        //    Debug.Log("Loaded Tutorial lv 3 sound");
+        //    song = sounds[2];
+        //}
+        //if (Application.loadedLevelName.ToString() == "Splash_Screen")
+        //{
+        //    Debug.Log("Loaded Splash Screen sound");
+        //    song = sounds[3];
+        //}
     }
     public void ResetStats()
     {
