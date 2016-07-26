@@ -23,6 +23,8 @@ public class Conductor : MonoBehaviour {
 
     private static Conductor instance = null;
 
+    public int tracknumber;                        //to be used to track the current song
+
     //read only, singleton approach
     public static Conductor Instance
     {
@@ -76,7 +78,7 @@ public class Conductor : MonoBehaviour {
         actuallasthit = 0;
 
         //default song
-        LoadSongLevel(4);
+        LoadSongLevel(3);
         StartMusic();
 	}
 	
@@ -123,47 +125,40 @@ public class Conductor : MonoBehaviour {
 
         switch(num)
         {
-            case 1:
+            case 0:
                 Debug.Log("sounds[0] loaded");
                 bpm = 80;
+                tracknumber = 0;
                 song = sounds[0];   //Tutorial 1
                 break;
-            case 2:
+            case 1:
                 Debug.Log("sounds[1] loaded");
                 bpm = 80;
+                tracknumber = 1;
                 song = sounds[1];   //Tutorial 2
                 break;
-            case 3:
+            case 2:
                 Debug.Log("sounds[2] loaded");
                 bpm = 80;
+                tracknumber = 2;
                 song = sounds[2];   //Tutorial 3
                 break;
-            case 4:
+            case 3:
                 Debug.Log("sound[3] loaded");
+                tracknumber = 3;
                 song = sounds[3];   //Frozen Snow - Lullaby (Main Menu)
                 break;
+            case 4:
+                Debug.Log("sound[4] loaded");
+                tracknumber = 4;
+                song = sounds[4];   //Beethoven Moonlight Sonata
+                break;
+            case 5:
+                Debug.Log("sound[5] loaded");
+                tracknumber = 5;
+                song = sounds[5];   //Mozart Turkish March
+                break;
         }
-
-        //if (Application.loadedLevelName.ToString() == "Tutorial_Level")
-        //{
-        //    Debug.Log("Loaded Tutorial lv 1 sound");
-        //    song = sounds[0];
-        //}
-        //else if (Application.loadedLevelName.ToString() == "Tutorial_Level_2")
-        //{
-        //    Debug.Log("Loaded Tutorial lv 2 sound");
-        //    song = sounds[1];
-        //}
-        //else if (Application.loadedLevelName.ToString() == "Tutorial_Level_3")
-        //{
-        //    Debug.Log("Loaded Tutorial lv 3 sound");
-        //    song = sounds[2];
-        //}
-        //if (Application.loadedLevelName.ToString() == "Splash_Screen")
-        //{
-        //    Debug.Log("Loaded Splash Screen sound");
-        //    song = sounds[3];
-        //}
     }
     public void ResetStats()
     {

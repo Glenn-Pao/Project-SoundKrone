@@ -62,17 +62,15 @@ public class Controller : MonoBehaviour
     {
         if(Application.loadedLevelName.ToString() == "Tutorial_Level")
         {
-            conductor.LoadSongLevel(0);     //beethoven sonata
-            
-            //conductor.LoadSongLevel(1);
+            conductor.LoadSongLevel(0);     
         }
         else if (Application.loadedLevelName.ToString() == "Tutorial_Level_2")
         {
-            conductor.LoadSongLevel(2);
+            conductor.LoadSongLevel(1);
         }
         else if(Application.loadedLevelName.ToString() == "Tutorial_Level_3")
         {
-            conductor.LoadSongLevel(3);
+            conductor.LoadSongLevel(2);
         }
     }
 
@@ -150,7 +148,7 @@ public class Controller : MonoBehaviour
     void levelCleared()
     {
         conductor.song.Stop();   //stop the music
-        conductor.LoadSongLevel(4);
+        conductor.LoadSongLevel(5);
         conductor.StartMusic();
         screentransitions.SwitchToMainMenu();
     }

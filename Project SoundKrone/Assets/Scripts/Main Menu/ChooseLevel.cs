@@ -5,13 +5,17 @@ using System.Collections;
 //It also affects the left and right button
 public class ChooseLevel : MonoBehaviour {
 
+    int levelNum;                                   //this number will be passed in to controller and conductor
     public MainMenu_PopOutButtons signal;           //to get the popOut component
     public MainMenu_ToggleButton[] arrLevels;       //the levels available
+    public ScreenTransitions transitions;           //screen transitions
     int activeNum;                                  //the currently active display
 
 	// Use this for initialization
 	void Start () 
     {
+        activeNum = 0;
+        levelNum = 0;
         //set the rest to inactive for now
 	    for(int i = 0; i < arrLevels.Length; i++)
         {
@@ -29,6 +33,7 @@ public class ChooseLevel : MonoBehaviour {
                 arrLevels[i].gameObject.SetActive(!gameObject.activeInHierarchy);
             }
         }
+        Debug.Log("Level Number: " + levelNum);
 	}
     void FindActiveDisplay()
     {
@@ -63,11 +68,14 @@ public class ChooseLevel : MonoBehaviour {
         switch(activeNum)
         {
             case 0:         //Tutorial 2, disable all game objects to display default Tutorial 1
+                levelNum = 0;
                 break;
             case 1:         //Tutorial 3, switch to Tutorial 2
+                levelNum = 1;
                 arrLevels[0].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
             case 10:        //display Tutorial 3
+                levelNum = 2;
                 arrLevels[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
         }
@@ -88,12 +96,32 @@ public class ChooseLevel : MonoBehaviour {
         switch (activeNum)
         {
             case 0:         //Tutorial 2, switch to Tutorial 3
+                levelNum = 2;
                 arrLevels[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
             case 1:         //Tutorial 3, switch to Tutorial 1. Disable all game objects
+                levelNum = 0;
                 break;
             case 10:         //display Tutorial 2
+                levelNum = 1;
                 arrLevels[0].gameObject.SetActive(gameObject.activeInHierarchy);
+                break;
+        }
+    }
+    //the situation where play button is pressed
+    public void PlayButtonPress()
+    {
+        //Based on the number passed in, load the level accordingly
+        switch(levelNum)
+        {
+            case 0:
+                transitions.SwitchToTutorialLevel();
+                break;
+            case 1:
+                transitions.SwitchToTutorialLevel2();
+                break;
+            case 2:
+                transitions.SwitchToTutorialLevel3();
                 break;
         }
     }
