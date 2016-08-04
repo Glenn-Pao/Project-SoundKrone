@@ -123,16 +123,19 @@ public class Controller : MonoBehaviour
     //press the pause button. This will trigger the pause.
     public void PauseGame()
     {
-        //if not paused, toggle it to true
-        if(!isPaused)
+        if(!failed && !levelcleared)
         {
-            isPaused = true;
-        }
-        //if it is paused, toggle it back to false
-        else
-        {
-            isPaused = false;
-        }
+            //if not paused, toggle it to true
+            if (!isPaused)
+            {
+                isPaused = true;
+            }
+            //if it is paused, toggle it back to false
+            else
+            {
+                isPaused = false;
+            }
+        } 
     }
 
     // Update is called once per frame
@@ -156,8 +159,7 @@ public class Controller : MonoBehaviour
 
     void levelCleared()
     {
-        conductor.song.Stop();   //stop the music
-        
+        conductor.song.Stop();   //stop the music   
     }
     //returns to the main menu
     public void ReturnToMainMenu()
