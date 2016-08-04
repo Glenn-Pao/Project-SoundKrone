@@ -12,6 +12,7 @@ public class Controller : MonoBehaviour
     public Foot chosenfoot;             //left or right foot?
     public Conductor conductor;
     public CCamera theCamera;
+    public Settings settings;           //the settings class
     public float speed = 1;
     public string levelstring;
     public float angleoffset;
@@ -36,6 +37,10 @@ public class Controller : MonoBehaviour
         if (conductor == null)
         {
             conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
+        if(settings == null)
+        {
+            settings = (Settings)FindObjectOfType(typeof(Settings));
         }
     }
     // Use this for initialization
@@ -80,7 +85,11 @@ public class Controller : MonoBehaviour
     {
         //trigger the pulse as visual feedback
         theCamera.timer = 0;
-        //theCamera.Pulse();
+        
+        if(settings.pulseActivated)
+        {
+            theCamera.Pulse();
+        }
 
         theCamera.frompos = theCamera.transform.position;
         theCamera.topos = new Vector3(chosenfoot.transform.position.x, chosenfoot.transform.position.y, theCamera.transform.position.z);
@@ -148,6 +157,11 @@ public class Controller : MonoBehaviour
     void levelCleared()
     {
         conductor.song.Stop();   //stop the music
+        
+    }
+    //returns to the main menu
+    public void ReturnToMainMenu()
+    {
         conductor.LoadSongLevel(5);
         conductor.StartMusic();
         screentransitions.SwitchToMainMenu();

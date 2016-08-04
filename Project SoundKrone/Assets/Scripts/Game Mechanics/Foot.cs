@@ -17,9 +17,10 @@ public class Foot : MonoBehaviour
     public Conductor conductor;
     public Controller controller;
     public static bool bStationary = false;
-    public static bool bFlashEnabled = true;       //if true, show the flash.
+    //public static bool bFlashEnabled = true;       //if true, show the flash.
     public BackgroundBars backgroundbars;
     public TapFeedback feedback;        //for visual feedback of perfect, good, bad, miss
+    public Settings settings;           //the settings component. take out the flash feedback and check if it is true
 
     // Use this for initialization
     void Start()
@@ -27,6 +28,10 @@ public class Foot : MonoBehaviour
         if(conductor == null)
         {
             conductor = (Conductor)FindObjectOfType(typeof(Conductor));
+        }
+        if(settings == null)
+        {
+            settings = (Settings)FindObjectOfType(typeof(Settings));
         }
         angle = 0;
     }
@@ -43,8 +48,8 @@ public class Foot : MonoBehaviour
             SetOthersToAngle();
         }
 
-
-        if (Controller.isgameworld && Controller.started && conductor.beatnumber > 4)
+        //as long as the level isn't cleared, give it a chance to fail
+        if (Controller.isgameworld && Controller.started && conductor.beatnumber > 4 && !controller.levelcleared)
         {
             if (conductor.songposition - conductor.actuallasthit > conductor.crotchet * 2)
             {
@@ -52,8 +57,14 @@ public class Foot : MonoBehaviour
                 controller.FailLevel();
             }
         }
-        if (Controller.failed && radius > 0)
-            radius -= 0.05f;
+        if (radius > 0)
+        {
+            //trigger this when either faied or level is cleared
+            if(Controller.failed || controller.levelcleared)
+            {
+                radius -= 0.05f;
+            }
+        }
     }
     //intended for the use of tap feedback to be placed in "SwitchChosen"
     void CollisionCheck()
@@ -104,7 +115,11 @@ public class Foot : MonoBehaviour
             //flash the "Miss.." sprite
             feedback.SetNumber(0);
             feedback.RenderImage(Color.white);
-            backgroundbars.FlashBar(Color.red);
+
+            if(settings.flashActivated)
+            {
+                backgroundbars.FlashBar(Color.red);
+            }
             return this;
         }
 
@@ -118,15 +133,14 @@ public class Foot : MonoBehaviour
         //find out the exact location at which the player taps. This will give the feedback on how accurate their tap is.
         CollisionCheck();
 
-        if(bFlashEnabled)
+        //if flash is enabled, trigger it
+        if (settings.flashActivated)
         {
-            //this is when player makes successful move, turn it to green
-            floor.GetComponent<Floor>().success = true;
             backgroundbars.FlashBar(Color.grey);
         }
 
         //this is when player makes successful move, turn it to green
-        //floor.GetComponent<Floor>().success = true;
+        floor.GetComponent<Floor>().success = true;
         
 
         SnappedNextAngle = SnapAngle(angle);

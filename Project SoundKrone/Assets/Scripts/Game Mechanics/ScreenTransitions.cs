@@ -59,6 +59,12 @@ public class ScreenTransitions : MonoBehaviour {
         Debug.Log("Load Level 1");
         Application.LoadLevel("Level_1");
     }
+    //load the settings
+    public void SwitchToSettings()
+    {
+        Debug.Log("Load Settings");
+        Application.LoadLevel("Settings");
+    }
     //quit the application
     public void Quit()
     {

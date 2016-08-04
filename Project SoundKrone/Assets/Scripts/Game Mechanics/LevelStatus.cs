@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//a class that handles the pause o3o
-//I think this is overkill though.
-public class Pause : MonoBehaviour 
-{
+//a class that handles the status of the stage
+public class LevelStatus : MonoBehaviour {
+
     public Flash[] arrImages;
     //Color start = Color.clear;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         //ShowSprite(Color.clear);
-	}
-	
-	// Update is called once per frame
-	void Update () 
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-	}
+    }
 
     public void ShowSprite()
     {
@@ -26,7 +25,8 @@ public class Pause : MonoBehaviour
             //initialize the 2 colors needed
             Color start, end;
 
-            if(Controller.isPaused)
+            //
+            if (Controller.failed)
             {
                 //define the colors needed
                 start = Color.clear;

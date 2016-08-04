@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Game Mechanics\Flash.cs" />
      <Compile Include="Assets\Scripts\Game Mechanics\Floor.cs" />
      <Compile Include="Assets\Scripts\Game Mechanics\Foot.cs" />
+     <Compile Include="Assets\Scripts\Game Mechanics\LevelStatus.cs" />
      <Compile Include="Assets\Scripts\Game Mechanics\Pause.cs" />
      <Compile Include="Assets\Scripts\Game Mechanics\PopOutButtons.cs" />
      <Compile Include="Assets\Scripts\Game Mechanics\ScreenTransitions.cs" />
@@ -65,6 +66,9 @@
      <Compile Include="Assets\Scripts\Main Menu\ChooseSong.cs" />
      <Compile Include="Assets\Scripts\Main Menu\MainMenu_PopOutButtons.cs" />
      <Compile Include="Assets\Scripts\Main Menu\MainMenu_ToggleButton.cs" />
+     <Compile Include="Assets\Scripts\Main Menu\Settings.cs" />
+     <Compile Include="Assets\Scripts\Main Menu\Settings_PopOutSprites.cs" />
+     <Compile Include="Assets\Scripts\Main Menu\Settings_RenderManager.cs" />
      <Compile Include="Assets\Scripts\Main Menu\Spinning_Disc.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

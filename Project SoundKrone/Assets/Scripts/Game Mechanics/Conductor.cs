@@ -15,9 +15,8 @@ public class Conductor : MonoBehaviour {
     public float actuallasthit;                       //the last time this button is pressed
     float nextbeattime = 0.0f;
     float nextbartime = 0.0f;
-    public float offset = 0.2f;                      //positive means the song must be minussed!
-    public static float offsetstatic = 0.2f;
-    public static bool hasoffsetadjusted = false;
+    public float offset = 0.08f;                      //positive means the song must be minussed!
+    public static float offsetstatic = 0.08f;
     public int beatnumber = 0;
     public int barnumber = 0;
 
@@ -52,21 +51,7 @@ public class Conductor : MonoBehaviour {
 	void Start () 
     {
         //adjust the playback based on the tiny lag that will be expected
-        if (!hasoffsetadjusted)
-        {
-            //the offset must be adjustable
-            if (Application.platform == RuntimePlatform.OSXWebPlayer)
-                offset = 0.35f;
-            if (Application.platform == RuntimePlatform.WindowsWebPlayer)
-                offset = 0.45f;
-            if (Application.platform == RuntimePlatform.Android)
-                offset = 0.2f;
-            hasoffsetadjusted = true;
-        }
-        else
-        {
-            offset = offsetstatic;
-        }
+        offset = offsetstatic;
        
         //crotchet = SelectionBaseAttribute
         crotchet = 60.0f / bpm;
