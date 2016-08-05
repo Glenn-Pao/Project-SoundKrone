@@ -8,6 +8,7 @@ public class ChooseLevel : MonoBehaviour {
     int levelNum;                                   //this number will be passed in to controller and conductor
     public MainMenu_PopOutButtons signal;           //to get the popOut component
     public MainMenu_ToggleButton[] arrLevels;       //the levels available
+    public MainMenu_ToggleButton[] arrImages;       //the corresponding images of the levels
     public ScreenTransitions transitions;           //screen transitions
     int activeNum;                                  //the currently active display
 
@@ -21,6 +22,10 @@ public class ChooseLevel : MonoBehaviour {
         {
             arrLevels[i].gameObject.SetActive(!gameObject.activeInHierarchy);
         }
+        for (int i = 0; i < arrImages.Length; i++)
+        {
+            arrImages[i].gameObject.SetActive(!gameObject.activeInHierarchy);
+        }
 	}
 	// Update is called once per frame
 	void Update () 
@@ -31,6 +36,10 @@ public class ChooseLevel : MonoBehaviour {
             for (int i = 0; i < arrLevels.Length; i++)
             {
                 arrLevels[i].gameObject.SetActive(!gameObject.activeInHierarchy);
+            }
+            for (int i = 0; i < arrImages.Length; i++)
+            {
+                arrImages[i].gameObject.SetActive(!gameObject.activeInHierarchy);
             }
         }
         Debug.Log("Level Number: " + levelNum);
@@ -63,6 +72,7 @@ public class ChooseLevel : MonoBehaviour {
         {
             //make the currently active display inactive first.
             arrLevels[activeNum].gameObject.SetActive(!gameObject.activeInHierarchy);
+            arrImages[activeNum].gameObject.SetActive(!gameObject.activeInHierarchy);
         }
 
         switch(activeNum)
@@ -73,10 +83,12 @@ public class ChooseLevel : MonoBehaviour {
             case 1:         //Tutorial 3, switch to Tutorial 2
                 levelNum = 1;
                 arrLevels[0].gameObject.SetActive(gameObject.activeInHierarchy);
+                arrImages[0].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
             case 10:        //display Tutorial 3
                 levelNum = 2;
                 arrLevels[1].gameObject.SetActive(gameObject.activeInHierarchy);
+                arrImages[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
         }
     }
@@ -91,6 +103,7 @@ public class ChooseLevel : MonoBehaviour {
         {
             //make the currently active display inactive first.
             arrLevels[activeNum].gameObject.SetActive(!gameObject.activeInHierarchy);
+            arrImages[activeNum].gameObject.SetActive(!gameObject.activeInHierarchy);
         }
 
         switch (activeNum)
@@ -98,6 +111,7 @@ public class ChooseLevel : MonoBehaviour {
             case 0:         //Tutorial 2, switch to Tutorial 3
                 levelNum = 2;
                 arrLevels[1].gameObject.SetActive(gameObject.activeInHierarchy);
+                arrImages[1].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
             case 1:         //Tutorial 3, switch to Tutorial 1. Disable all game objects
                 levelNum = 0;
@@ -105,6 +119,7 @@ public class ChooseLevel : MonoBehaviour {
             case 10:         //display Tutorial 2
                 levelNum = 1;
                 arrLevels[0].gameObject.SetActive(gameObject.activeInHierarchy);
+                arrImages[0].gameObject.SetActive(gameObject.activeInHierarchy);
                 break;
         }
     }
